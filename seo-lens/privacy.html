@@ -36,7 +36,7 @@
 <p><strong>This extension collects nothing. It has no server. Nothing you audit leaves your browser.</strong></p>
 
 <h2>What the extension does</h2>
-<p>When you start an audit, the extension fetches the pages of the site you entered and sends an HTTP request to each link found on those pages in order to read its status code. It also looks for <code>robots.txt</code> and <code>sitemap.xml</code> on that site.</p>
+<p>When you start an audit, the extension fetches the pages of the site you entered and sends an HTTP request to each link and image found on those pages in order to read its status code. It also looks for <code>robots.txt</code>, <code>sitemap.xml</code> and <code>llms.txt</code> on that site.</p>
 <p>These requests go directly from your browser to the site being audited. They do not pass through any server operated by the developer, because no such server exists.</p>
 
 <h2>Data we collect</h2>
@@ -62,14 +62,14 @@
 
 <h2>Permissions</h2>
 <ul>
-  <li><strong>Host access (requested at run time, not at install time)</strong> — required to fetch the pages you ask to audit and to check the status of the links on them. The site is not known in advance, so access cannot be restricted to a fixed list of hosts.</li>
+  <li><strong>Host access (requested at run time, not at install time)</strong> — required to fetch the pages you ask to audit, along with that site's robots.txt, sitemap.xml and llms.txt, and to check the status of the links and images on those pages. The site is not known in advance, so access cannot be restricted to a fixed list of hosts.</li>
   <li><code>tabs</code> — used only to read the URL of the active tab, so the audit form can be pre-filled with the page you were looking at.</li>
   <li><code>storage</code> — used only for the single value described above.</li>
 </ul>
 
-<h2>Cookies and authenticated pages</h2>
-<p>Page requests to the site you are auditing are made with your browser's existing cookies. This is what lets the extension audit pages behind a login, staging sites, and localhost. Those cookies are sent only to the site you are auditing, exactly as they would be if you visited the page yourself. The extension does not read, copy, or store them.</p>
-<p>Link status checks are made <strong>without</strong> cookies. When the extension checks an external link, no cookie or credential of yours is sent to that third-party site.</p>
+<h2>Cookies</h2>
+<p><strong>No cookies are sent with any request the extension makes.</strong> Every request — the pages it audits, robots.txt, sitemap.xml, llms.txt, and the status checks on links and images — is made without credentials.</p>
+<p>This is deliberate. Search engines are not logged in, so the anonymous view of a page is the one that matters for an audit. It also means the extension cannot act on your behalf on a site where you happen to be logged in.</p>
 
 <h2>Third parties</h2>
 <p>There are none. The extension contacts no analytics service, no API, and no backend of ours. It uses no trackers and no advertising networks.</p>
@@ -89,7 +89,7 @@
 <p><strong>この拡張機能は何も収集しません。サーバーを持ちません。監査した内容がブラウザーの外に出ることはありません。</strong></p>
 
 <h2>本拡張機能の動作</h2>
-<p>監査を開始すると、本拡張機能は入力されたサイトのページを取得し、そのページ上で見つかった各リンクに対してHTTPリクエストを送信してステータスコードを読み取ります。あわせて、そのサイトの <code>robots.txt</code> と <code>sitemap.xml</code> を探します。</p>
+<p>監査を開始すると、本拡張機能は入力されたサイトのページを取得し、そのページ上で見つかった各リンクと画像に対してHTTPリクエストを送信してステータスコードを読み取ります。あわせて、そのサイトの <code>robots.txt</code>、<code>sitemap.xml</code>、<code>llms.txt</code> を探します。</p>
 <p>これらのリクエストは、お使いのブラウザーから監査対象のサイトへ直接送信されます。開発者が運用するサーバーを経由することはありません。そのようなサーバーは存在しないためです。</p>
 
 <h2>収集しないデータ</h2>
@@ -115,14 +115,14 @@
 
 <h2>権限の利用目的</h2>
 <ul>
-  <li><strong>ホストへのアクセス（インストール時ではなく実行時に要求）</strong> — 監査を指示されたページを取得し、そのページ上のリンクの状態を確認するために必要です。対象サイトは事前に分からないため、特定のホストに限定することができません。</li>
+  <li><strong>ホストへのアクセス（インストール時ではなく実行時に要求）</strong> — 監査を指示されたページと、そのサイトの robots.txt / sitemap.xml / llms.txt を取得し、ページ上のリンクと画像の状態を確認するために必要です。対象サイトは事前に分からないため、特定のホストに限定することができません。</li>
   <li><code>tabs</code> — 現在開いているタブのURLを読み取り、監査フォームの初期値にするためだけに使用します。</li>
   <li><code>storage</code> — 上記の1つの値の保存のためだけに使用します。</li>
 </ul>
 
-<h2>Cookie と認証が必要なページ</h2>
-<p>監査対象サイトへのページ取得リクエストは、ブラウザーが既に持っているCookieを伴って送信されます。これにより、ログイン後のページ・ステージング環境・localhost を監査できます。これらのCookieは、あなた自身がそのページを訪問した場合とまったく同じように、監査対象のサイトに対してのみ送信されます。本拡張機能がCookieを読み取ったり、複製したり、保存することはありません。</p>
-<p>リンクの状態確認は<strong>Cookieを伴わずに</strong>行われます。外部リンクを確認する際、あなたのCookieや認証情報が第三者のサイトに送信されることはありません。</p>
+<h2>Cookie</h2>
+<p><strong>本拡張機能が送信するすべてのリクエストは、Cookieを伴いません。</strong>監査対象のページ、robots.txt、sitemap.xml、llms.txt、リンクと画像の状態確認 — そのいずれも認証情報なしで送信されます。</p>
+<p>これは意図的な設計です。検索エンジンはログインしていないため、監査において意味を持つのは匿名の状態で見えるページです。また、あなたがログインしているサイトに対して、本拡張機能があなたの代わりに何かを実行することもありません。</p>
 
 <h2>第三者サービス</h2>
 <p>第三者サービスは一切使用していません。分析サービス・API・開発者側のバックエンドのいずれにも接続しません。トラッキングや広告ネットワークも使用していません。</p>
